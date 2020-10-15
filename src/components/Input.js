@@ -34,35 +34,43 @@ STEP 6:
   We need to add an extra prop to the <input /> element like so: value={inputValue}
 */
 
-import React from 'react'; /* STEP 0 */
+import React, {useState} from 'react'; /* STEP 0 */
 
-export default function Input() {
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
   /* STEP 1 */
 
-  const changeInput = evt => {
-    // When the input changes, its whole value can be found inside the event object.
-    // Log out the synthetic event object 'evt' and see for yourself.
-    const { value } = evt.target;
-
+  const increment = () => {
+    setCount(count + 1)
     /* STEP 4 */
   };
-  const reset = () => {
+  const decrement = () => {
+    setCount(count - 1)
     /* STEP 5 */
+  };
+  const reset = () => {
+    setCount(0)
+    /* STEP 6 */
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: (count % 2 === 0) ? 'royalblue' : 'crimson'
+     /* STEP 2 */
   };
 
   return (
-    <div className='widget-input container'>
-      <h2>Input</h2>
-      <div id='output' style={style}></div> {/* STEP 3 */}
+    <div className='widget-counter container'>
+      <h2>Counter</h2>
+      <div id='count' style={style}>
+        Number: {count} is {(count % 2 === 0) ? "Even" : "Odd"} {/* STEP 3 */}
+      </div>
       <div>
-        <input id='input' type='text' onChange={changeInput} /> {/* STEP 6 */}
-        <button id='resetInput' onClick={reset}>Reset</button>
+        <button id='increment' onClick={increment}>Increment</button>
+        <button id='decrement' onClick={decrement}>Decrement</button>
+        <button id='resetCount' onClick={reset}>Reset</button>
       </div>
     </div>
   );
